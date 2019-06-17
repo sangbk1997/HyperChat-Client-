@@ -1,0 +1,10 @@
+<div (mouseover)="checkShowBox()" class="{{CLASS_BOX_REACT_EMOJI_USERS}}" [ngStyle]="{top: styleBoxReactEmojiUsers.top + 'px', left: styleBoxReactEmojiUsers.left + 'px'}">
+  <h2 class="text-center">{{emoji}}</h2>
+  <div class="react-emoji-user m-1" *ngFor="let user of users">
+    <span class="w-25 text-center">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+           class="avatar img-fluid z-depth-1-half rounded-circle">
+    </span>
+    <span class="w-75 text-left p-2">{{user.username}}</span>
+  </div>
+</div>

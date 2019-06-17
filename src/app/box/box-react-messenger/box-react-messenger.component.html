@@ -1,0 +1,22 @@
+<div class="box-react-emojis" *ngIf="isShowBoxReactEmojis">
+  <div class="item-emoji" *ngFor="let emoji of listEmojis; let index = index;"
+       [id]="'item-emoji' + '-' + randomeId + '-' + index"
+       (mouseover)="showReactUsers(emoji, 'item-emoji' + '-' + randomeId + '-' + index)"
+       (mouseout)="hideReactUsers(emoji)">
+    <span>{{emoji}}</span>
+    <span *ngIf="(objEmojis[emoji].length > 1)">{{objEmojis[emoji].length}}</span>
+  </div>
+</div>
+
+<div *ngIf="isViewUsersRead" class="box-user-read-message text-right">
+  <div class="item-user" *ngFor="let user of listUserReadSample; let index = index;">
+     <span [id]="'user' + '-' + index + '-' + randomeId"
+           (click)="showBoxUsersRead( $event, 'user' + '-' + index + '-' + randomeId)">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+           class="avatar-user-read img-fluid z-depth-1-half rounded-circle">
+    </span>
+  </div>
+  <span *ngIf="listUserRead.length > listUserReadSample.length"
+        class="text-muted small" [id]="'more-user' + '-' + randomeId"
+        (click)="showBoxUsersRead($event, 'more-user' + '-' + randomeId)"> + {{listUserRead.length - listUserReadSample.length}}</span>
+</div>

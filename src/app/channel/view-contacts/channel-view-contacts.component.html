@@ -1,0 +1,14 @@
+<div class="row mb-2 link chat-row" *ngFor="let contact of suggestContacts" (click)="chooseContact(contact)">
+  <div class="w-25 text-center">
+    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+         class="avatar img-fluid z-depth-1-half rounded-circle">
+  </div>
+  <div class="w-75">
+    <b>{{contact.username}}</b>
+    <div class="small text-muted">
+      ( {{contact.email}} )
+    </div>
+  </div>
+</div>
+<div class="row text-right" *ngIf="suggestContacts.length < numberAbleContacts" (click)="moreContacts()"><b>More</b>
+</div>

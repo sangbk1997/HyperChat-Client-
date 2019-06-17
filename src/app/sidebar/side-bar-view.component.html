@@ -1,0 +1,185 @@
+<div class="sidebar-header">
+  <div class="info-user row">
+    <div class="col-10 row">
+      <div class="col-4 text-center dropdown p-2" id="avatarUser" data-toggle="dropdown">
+        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+             class="avatar img-fluid z-depth-1-half rounded-circle">
+      </div>
+      <div class="info-detail col-8 pt-3 small" id="infoUser" data-toggle="dropdown">
+        <div class="link">
+          {{userLogin.username}}
+        </div>
+        <div>
+          <span class="link">Let's smile every day</span>
+          <span class="emotion hvr-bounce-in"><i class="far fa-smile"></i></span>
+        </div>
+      </div>
+      <div class="dropdown-menu p-4" style="width: 320px; z-index: 2000">
+        <div class="row">
+          <h3 class="col-8 text-primary">Thông tin</h3>
+          <div class="col-4 text-right small link" (click)="logout()">Sign Out</div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-4">
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+                 class="avatar img-fluid z-depth-1-half rounded-circle">
+          </div>
+          <div class="col-8">
+            <h4 class="link" (click)="viewChatmeProfile()">Sang Tigo</h4>
+            <div class="small"><b>( {{userLogin.email}} )</b></div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <input type="radio" checked>
+          </div>
+          <div class="col-8">
+            <span>Đang hoạt động</span>
+          </div>
+        </div>
+        <hr>
+        <div class="list-group">
+          <button class="list-group-item py-1 active waves-light white-text"> Quản lý</button>
+          <div class="list-group-item py-1 list-group-item-action waves-light">
+            <div class="row">
+              <div class="col-2 link"><i class="fas fa-file-alt"></i></div>
+              <div class="col-10 link">Cá nhân</div>
+            </div>
+          </div>
+          <div class="list-group-item py-1 list-group-item-action waves-light">
+            <div class="row" (click)="showSentRequest()">
+              <div class="col-2 link"><i class="fas fa-wifi"></i></div>
+              <div class="col-10 link">Kết nối chờ</div>
+            </div>
+          </div>
+          <div class="list-group-item py-1 list-group-item-action waves-light">
+            <div class="row">
+              <div class="col-2 link"><i class="fas fa-cog"></i></div>
+              <div class="col-10 link">Cài đặt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 icon text-right">
+      <i class='fas fa-ellipsis-h' data-toggle="dropdown"></i>
+      <div class="dropdown-menu">
+        <div class="dropdown-item" data-toggle="modal" (click)="showProfile()">Setting</div>
+        <hr>
+        <div class="dropdown-item" data-toggle="modal" (click)="logout()">Logout</div>
+      </div>
+    </div>
+  </div>
+  <div class="box-search-channel row p-2 text-center">
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend" (click)="search()">
+        <span class="input-group-text hvr-grow icon"> <i class="fas fa-search"></i></span>
+      </div>
+      <input (focus)="changeActivity()" type="text" class="form-control" placeholder="Search here"
+             [(ngModel)]="searchValue">
+      <div class="input-group-append" *ngIf="activitiesUser.isSearching">
+        <span class="input-group-text hvr-grow icon" (click)="backHome()"><i class="fas fa-times"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="menu-search-item text-center row p-2" *ngIf="!activitiesUser.isSearching">
+    <div class="col text-center" (click)="goToChats()" routerLink="/"
+         [ngClass]="(activitiesUser.location == LOCATION_HOME_CHAT) ? 'text-primary': 'text-muted'">
+      <div class="symbol-link  hvr-pulse hvr-grow-shadow">
+        <i class="fab fa-rocketchat"></i>
+      </div>
+      <div>
+        <strong><a class="title-item">
+          Chats
+        </a></strong>
+      </div>
+    </div>
+    <div class="col text-center" (click)="goToContacts()" routerLink="/contacts"
+         [ngClass]="(activitiesUser.location == LOCATION_HOME_CONTACTS) ? 'text-primary': 'text-muted'">
+      <div class="symbol-link  hvr-pulse hvr-grow-shadow">
+        <i class="fas fa-address-card"></i>
+      </div>
+      <div>
+        <strong><a class="title-item">
+          Contacts
+        </a></strong>
+      </div>
+    </div>
+    <div class="col text-center"
+         [ngClass]="(activitiesUser.location == LOCATION_HOME_INCOME_REQUEST) ? 'text-primary': 'text-muted'"
+         (click)="goToIncomeRequest()">
+      <div class="symbol-link  hvr-pulse hvr-grow-shadow">
+        <i class="fas fa-child"></i>
+      </div>
+      <div>
+        <strong><a class="title-item">
+          Requests
+        </a></strong>
+      </div>
+    </div>
+    <!--<div class="col text-center" routerLink="/contacts"-->
+    <!--[ngClass]="(activitiesUser.location == LOCATION_HOME_NOTIFICATIONS) ? 'text-primary': 'text-muted'"-->
+    <!--(click)="showBoxNotifications()">-->
+    <!--<div class="symbol-link  hvr-pulse hvr-grow-shadow">-->
+    <!--<i class="fas fa-bell"></i>-->
+    <!--</div>-->
+    <!--<div>-->
+    <!--<strong><a class="title-item">-->
+    <!--Notifications-->
+    <!--</a></strong>-->
+    <!--</div>-->
+    <!--</div>-->
+  </div>
+  <div class="menu-search-item text-center row p-2" *ngIf="activitiesUser.isSearching">
+    <div class="col text-center" (click)="goToSearchAll()" routerLink="/search?filter=all"
+         [ngClass]="(activitiesUser.location == LOCATION_SEARCH_ALL) ? 'text-primary': 'text-muted'">
+      <div class="symbol-link  hvr-pulse hvr-grow-shadow">
+        <i class="fab fa-rocketchat"></i>
+      </div>
+      <div>
+        <strong><a class="title-item">
+          All
+        </a></strong>
+      </div>
+    </div>
+    <div class="col text-center" (click)="goToSearchPeople()" routerLink="/search?filter=people"
+         [ngClass]="(activitiesUser.location == LOCATION_SEARCH_PEOPLE) ? 'text-primary': 'text-muted'">
+      <div class="symbol-link  hvr-pulse hvr-grow-shadow">
+        <i class="fas fa-address-card"></i>
+      </div>
+      <div>
+        <strong><a class="title-item">
+          People
+        </a></strong>
+      </div>
+    </div>
+    <div class="col text-center" (click)="goToSearchGroup()" routerLink="/search?filter=groups"
+         [ngClass]="(activitiesUser.location == LOCATION_SEARCH_GROUPS) ? 'text-primary': 'text-muted'">
+      <div class="symbol-link  hvr-pulse hvr-grow-shadow">
+        <i class="fas fa-users"></i>
+      </div>
+      <div>
+        <strong><a class="title-item">
+          Groups
+        </a></strong>
+      </div>
+    </div>
+  </div>
+  <div class="header-by-item row small">
+    <div class="title col">
+      RECENT CHATS
+      <span class="fas fa-angle-down icon"></span>
+    </div>
+    <div class="col text-right">
+      <!-- Basic dropdown -->
+      <button type="button" class="btn btn-info btn-rounded btn-sm" data-toggle="dropdown">Chat<i
+        class="fas fa-plus ml-2" aria-hidden="true"></i></button>
+      <div class="dropdown-menu">
+        <div class="dropdown-item" data-toggle="modal" (click)="showModalInitAddChannel()">New chat</div>
+        <div class="dropdown-item" data-toggle="modal" (click)="showModalInitAddChannel()">New group chat</div>
+      </div>
+      <!-- Basic dropdown -->
+    </div>
+  </div>
+</div>

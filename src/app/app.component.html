@@ -1,20 +1,371 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="chat-app">
+  <div class="sidebar">
+    <side-bar-view></side-bar-view>
+    <div class="sidebar-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="header-channel p-3">
+        <span class="info-channel float-left" *ngIf="!firstAccess">
+          <div class="title-channel">
+            <h3 class="link" *ngIf="selectedChat.role == ROLE_IS_CHANNEL"
+                (click)="showInfoChannel()">{{selectedChat.title}}</h3>
+            <h3 class="link" *ngIf="selectedChat.role == ROLE_IS_USER"
+                (click)="showInfoChannel()">{{selectedChat.username}}</h3>
+          </div>
+          <div class="attached-info-channel row small font-weight-bold">
+            <div class="extra-info-channel mx-2">
+              <span class="symbol-link m-1"><i class="fas fa-circle"></i></span>
+              <span class="link" (click)="showInfoChannel()"
+                    *ngIf="selectedChat.role == ROLE_IS_USER">Truy cập gần đây {{selectedChat.lastLogon}}</span>
+              <span class="link" (click)="showInfoChannel()"
+                    *ngIf="selectedChat.role == ROLE_IS_CHANNEL">{{countMembers}}
+                thành viên</span>
+              <!--<h2>Channel view contacts </h2>-->
+            </div>
+            <span class="icon-line mr-2">|</span>
+            <div class="extra-info-channel mr-2">
+              <span class="symbol-link m-1"><i class="fas fa-book"></i></span>
+              <span class="link" (click)="showGalleryBox()">Gallery</span>
+            </div>
+            <span class="icon-line mr-2">|</span>
+            <div class="extra-info-channel mr-2">
+              <span class="symbol-link m-1"><i class="	fas fa-search"></i></span>
+              <span class="link">Find</span>
+            </div>
+          </div>
+        </span>
+      <span class="feature-support float-right" *ngIf="!firstAccess">
+          <span class="feature-item symbol-link  hvr-pulse hvr-grow-shadow"><i class="fas fa-video"></i></span>
+          <span class="feature-item symbol-link  hvr-pulse hvr-grow-shadow"><i class="fas fa-phone"></i></span>
+          <span class="feature-item symbol-link  hvr-pulse hvr-grow-shadow" (click)="addMoreUser()"><i
+            class="fas fa-user-plus"></i></span>
+        </span>
 
+      <div class="row m-auto text-center" *ngIf="firstAccess">
+        <h3 class="link">Welcome to Hyperlogy Chat App ... !</h3>
+      </div>
+    </div>
+
+    <div id="container-messenger" class="content-message-container p-3" (drop)="dropIntoBoxMessage($event)"
+         (dragover)="allowDrop($event, false)" (scroll)="loadPreviousMessenger(20)"
+         *ngIf="!firstAccess">
+      <div class="text-center">
+        <mdb-card class="mx-auto w-50"
+                  *ngIf="connectionStatus.isCheck && connectionStatus.status == CONNECTION_STATUS_NOT_CONNECT">
+          <mdb-card-body>
+            <mdb-card-title>
+              <h4>Thông tin</h4>
+            </mdb-card-title>
+            <mdb-card-text *ngIf="selectedChat.role == ROLE_IS_USER"> Bạn chưa kết nối đến
+              <b>{{selectedChat.username}}</b></mdb-card-text>
+            <mdb-card-text *ngIf="selectedChat.role == ROLE_IS_CHANNEL"> Bạn chưa kết nối đến
+              <b>{{selectedChat.title}}</b>
+            </mdb-card-text>
+            <div class="flex-row">
+              <button class="waves-light btn btn-primary waves-effect" color="primary" mdbbtn="" mdbwaveseffect=""
+                      type="button" ng-reflect-color="primary" (click)="sendRequest()">Gửi yêu cầu
+              </button>
+            </div>
+          </mdb-card-body>
+        </mdb-card>
+        <mdb-card class="mx-auto w-50"
+                  *ngIf="connectionStatus.isCheck && connectionStatus.status == CONNECTION_STATUS_PENDING">
+          <mdb-card-body>
+            <mdb-card-title>
+              <h4>Thông tin</h4>
+            </mdb-card-title>
+            <mdb-card-text *ngIf="userLogin.id != requestChat['triggerId']"><b>Đang chờ thông tin phản hồi từ bạn</b>
+            </mdb-card-text>
+            <mdb-card-text *ngIf="(userLogin.id == requestChat['triggerId']) && (selectedChat.role == ROLE_IS_USER)"><b>Đang
+              chờ thông tin phản hồi từ {{selectedChat.email}}</b>
+            </mdb-card-text>
+            <mdb-card-text *ngIf="(userLogin.id == requestChat['triggerId']) && (selectedChat.role == ROLE_IS_CHANNEL)">
+              <b>Đang chờ thông tin phản hồi từ {{selectedChat.title}}</b>
+            </mdb-card-text>
+            <div class="flex-row">
+              <button class="waves-light btn btn-primary waves-effect" color="primary" mdbbtn="" mdbwaveseffect=""
+                      type="button" ng-reflect-color="primary" *ngIf="userLogin.id != requestChat['triggerId']"
+                      (click)="acceptRequest()">Chấp nhận
+              </button>
+              <button class="waves-light btn btn-primary waves-effect" color="warning" mdbbtn="" mdbwaveseffect=""
+                      type="button" ng-reflect-color="primary" *ngIf="userLogin.id != requestChat['triggerId']"
+                      (click)="rejectRequest()">Từ chối
+              </button>
+              <button class="waves-light btn btn-primary waves-effect" color="danger" mdbbtn="" mdbwaveseffect=""
+                      type="button" ng-reflect-color="primary" *ngIf="userLogin.id == requestChat['triggerId']"
+                      (click)="deleteRequest()">Hủy
+              </button>
+            </div>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+      <div class="info-detail-message row mb-1"
+           *ngFor="let infoMessage of listMessages; let index = index; let last = last;">
+        <div id="first-message">
+        </div>
+        <!--<div class="col-1 text-center" style="border-right: #2e5e86 1px solid">-->
+        <!--<img *ngIf="infoMessage.userId != userLogin.id" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg"-->
+        <!--alt="IMG of Avatars"-->
+        <!--class="avatar img-fluid z-depth-1-half rounded-circle">-->
+        <!--</div>-->
+        <div class="col-1"></div>
+        <div class="col-10 text-left"
+             *ngIf="(infoMessage.userId != userLogin.id) && (infoMessage.typeRole == TYPE_ROLE_PRIMARY) && (infoMessage.type == TYPE_MESSENGER_TEXT)">
+          <div class="info-message">
+            <div class="extra-info small text-muted">
+              <span class="username">abc</span>
+            </div>
+            <div class="content-message">
+              <div class="">
+                <span [id]="'item-message' + '-' + index" class="text message-left">{{infoMessage.message}}</span>
+                <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                  class="fas fa-pencil-alt"></i></span>
+                <span [id]="'icon-smile' + '-' + index" class="emotion hvr-bounce-in"
+                      (click)="showBoxReactEmojis($event, 'icon-smile' + '-' + index, infoMessage)"><i
+                  class="far fa-smile"></i></span>
+              </div>
+              <box-react-messenger [reactEmojis]="infoMessage['userMessengers']"></box-react-messenger>
+            </div>
+          </div>
+        </div>
+        <div class="col-10 text-right"
+             *ngIf="(infoMessage.userId == userLogin.id) && (infoMessage.typeRole == TYPE_ROLE_PRIMARY)&& (infoMessage.type == TYPE_MESSENGER_TEXT)">
+          <div class="info-message">
+            <div class="extra-info small text-muted">
+              <span class="message-time-sent">3:59 PM</span>
+            </div>
+            <div class="content-message">
+              <div>
+                <span [id]="'item-message' + '-' + index" class="text message-right">{{infoMessage.message}}</span>
+                <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                  class="fas fa-pencil-alt"></i></span>
+              </div>
+              <box-react-messenger [reactEmojis]="infoMessage['userMessengers']"></box-react-messenger>
+            </div>
+          </div>
+        </div>
+        <div [id]="'item-message' + '-' + index" class="col-10 text-center"
+             *ngIf="(infoMessage.typeRole != TYPE_ROLE_PRIMARY) && (infoMessage.type == TYPE_MESSENGER_TEXT)">
+          <div class="info-message">
+            <div class="small text-muted">
+              <span class="text">{{infoMessage.message}}</span> <span class="message-time-sent">3:59 PM</span>
+              <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                class="fas fa-pencil-alt"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-10 text-left"
+             *ngIf="(infoMessage.userId != userLogin.id) && (infoMessage.typeRole == TYPE_ROLE_PRIMARY) && (infoMessage.type == TYPE_MESSENGER_IMAGE)">
+          <div class="content-message">
+            <div>
+              <span [id]="'item-message' + '-' + index" class="message-file">
+            <img
+              class="message-img"
+              [src]="'preview' + '/' + infoMessage.path" [alt]="infoMessage.message">
+          </span>
+              <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                class="fas fa-pencil-alt"></i></span>
+              <span [id]="'icon-smile' + '-' + index" class="emotion hvr-bounce-in"
+                    (click)="showBoxReactEmojis($event, 'icon-smile' + '-' + index, infoMessage)"><i
+                class="far fa-smile"></i>
+            </span>
+            </div>
+            <box-react-messenger [reactEmojis]="infoMessage['userMessengers']"></box-react-messenger>
+          </div>
+        </div>
+        <!--<div class="col-8 text-left icon"><i class="fas fa-arrow-right"></i></div>-->
+        <div class="col-10 text-left"
+             *ngIf="(infoMessage.userId != userLogin.id) && (infoMessage.typeRole == TYPE_ROLE_PRIMARY) && (infoMessage.type == TYPE_MESSENGER_FILE)">
+          <div class="content-message">
+            <div>
+               <span class="message-file">
+          <div class="message-title">{{infoMessage.message}}</div>
+          <div class="text-muted small">Size : {{infoMessage.fileSize | printData}}</div>
+          <div class="text-muted small">Type : {{infoMessage.fileExtension}}</div>
+          <div class="file">
+            <i class="fas fa-file"></i>
+            <span class="m-2">File</span>
+          </div>
+          <hr style="border: 1px white solid">
+          <div class="text-center"><a class="item-download" [href]="'attachments' + '/' + infoMessage.path"><strong>Tải xuống</strong></a></div>
+        </span>
+              <span [id]="'icon-smile' + '-' + index" class="emotion hvr-bounce-in"
+                    (click)="showBoxReactEmojis($event, 'icon-smile' + '-' + index, infoMessage)"><i
+                class="far fa-smile"></i>
+          </span>
+              <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                class="fas fa-pencil-alt"></i></span>
+            </div>
+            <box-react-messenger [reactEmojis]="infoMessage['userMessengers']"></box-react-messenger>
+          </div>
+        </div>
+        <!--<div class="col-8 text-right  icon"><i class="fas fa-arrow-right"></i></div>-->
+        <div class="col-10 text-right"
+             *ngIf="(infoMessage.userId == userLogin.id) && (infoMessage.typeRole == TYPE_ROLE_PRIMARY) && (infoMessage.type == TYPE_MESSENGER_IMAGE)">
+          <div class="content-message">
+            <div>
+               <span [id]="'item-message' + '-' + index" class="message-file">
+          <img
+            class="message-img"
+            [src]="'preview' + '/' + infoMessage.path" [alt]="infoMessage.message">
+        </span>
+              <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                class="fas fa-pencil-alt"></i></span>
+            </div>
+            <box-react-messenger [reactEmojis]="infoMessage['userMessengers']"></box-react-messenger>
+          </div>
+        </div>
+        <!--<div class="col-8 text-right icon"><i class="fas fa-arrow-right"></i></div>-->
+        <div class="col-10 text-right"
+             *ngIf="(infoMessage.userId == userLogin.id) && (infoMessage.typeRole == TYPE_ROLE_PRIMARY)  && (infoMessage.type == TYPE_MESSENGER_FILE)">
+          <div class="content-message">
+            <div>
+                 <span class="message-file">
+          <div class="message-title">{{infoMessage.message}}</div>
+          <div class="text-muted small">Size : {{infoMessage.fileSize | printData}}</div>
+               <div class="text-muted small">Type : {{infoMessage.fileExtension}}</div>
+          <div class="file">
+            <i class="fas fa-file"></i>
+            <span class="m-2">File</span>
+          </div>
+          <hr style="border: 1px white solid">
+           <div class="text-center"><a class="item-download" [href]="'attachments' + '/' + infoMessage.path"><strong>Tải xuống</strong></a></div>
+        </span>
+              <span class="text-muted small m-1" *ngIf="infoMessage.status == STATUS_EDITED"><i
+                class="fas fa-pencil-alt"></i></span>
+            </div>
+            <box-react-messenger [reactEmojis]="infoMessage['userMessengers']"></box-react-messenger>
+          </div>
+        </div>
+        <div class="col-1"><span [id]="'icon-show-activities' + '-' + index" class="icon"
+                                 (click)="showBoxMessageActivities(infoMessage, 'icon-show-activities' + '-' + index, 'item-message' + '-' + index, $event)"><i
+          class="fas fa-ellipsis-v"></i></span></div>
+        <!--<span class="col-8 text-left icon"><i class="fas fa-arrow-right"></i></span>-->
+      </div>
+    </div>
+    <div id="last-message">
+    </div>
+  </div>
+  <div class="row emoji text-center">
+  </div>
+  <div class="send-message-box"
+       *ngIf="requestChat.status == STATUS_ACCEPTED">
+    <div class="list-file-upload row p-2 m-1" *ngIf="processUpload" (dragover)="allowDrop($event, true)"
+         (drop)="dropIntoBoxSend($event)">
+      <span class="upload-item-pending" *ngFor="let objFile of uploadFiles">
+        <div class="file-item" *ngIf="objFile.type == TYPE_MESSENGER_FILE">
+          <i class="fas fa-times-circle icon" (click)="deleteUploadFile(objFile.id)"></i>
+          <div><i class="far fa-file"></i></div>
+          <div class="message-title">{{objFile.file.name}}</div>
+          <div class="text-muted">{{objFile.file.size | printData}}</div>
+        </div>
+        <div class="image-item" *ngIf="objFile.type == TYPE_MESSENGER_IMAGE">
+          <i class="fas fa-times-circle icon" (click)="deleteUploadFile(objFile.id)"></i>
+          <span><img class="message-img" [src]="objFile.url" alt="{{objFile.file.name}}"></span>
+        </div>
+      </span>
+      <div class="add-item-upload text-center" (click)="chooseFile()">
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+    <hr *ngIf="processUpload">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="input-group col-10">
+        <input id="inputSendMessage" type="text" class="form-control" placeholder="Send message"
+               [(ngModel)]="inputValue"
+               (keyup)="checkSendMessage($event)">
+        <div class="input-group-append" *ngIf="!processUpload">
+          <span class="input-group-text symbol-link hvr-grow"><i class="far fa-file-image"></i></span>
+        </div>
+        <div class="input-group-append" *ngIf="!processUpload">
+          <span class="input-group-text symbol-link hvr-grow" (click)="chooseFile()"><i
+            class="far fa-file-alt"></i></span>
+        </div>
+        <div class="input-group-append" *ngIf="!processUpload">
+          <span class="input-group-text symbol-link hvr-grow"><i class="fas fa-file-video"></i></span>
+        </div>
+        <div class="input-group-append" id="icon-message-emojis" *ngIf="!processUpload"
+             (click)="showBoxMessageEmojis($event)">
+          <span class="input-group-text symbol-link hvr-grow"><i class="emotion far fa-smile"></i></span>
+        </div>
+        <div class="input-group-append" *ngIf="!processUpload">
+          <span class="input-group-text symbol-link hvr-grow"><i class="fas fa-map-marker-alt"></i></span>
+        </div>
+        <div class="input-group-append" *ngIf="!processUpload">
+          <span class="input-group-text symbol-link hvr-grow"><i class="fas fa-file-video"></i></span>
+        </div>
+        <!--<ngx-emoji (emojiClick)="emojiClick($event)" [emoji]="{id: '+1'}" size="24" set="native">-->
+
+        <!--</ngx-emoji>-->
+        <div class="input-group-append" *ngIf="!processUpload">
+          <span class="input-group-text symbol-link hvr-grow"><i class="far fa-thumbs-up"></i></span>
+        </div>
+        <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+</div>
+
+<input id="inputFile" type="file" multiple (change)="doUpload($event)" style="display:none"/>
+<div class="box-emojis">
+  <emoji-mart
+    set="native"
+    color="orange"
+    isNative="true"
+    [hideRecent]="false"
+    [style]="{'z-index': 10000, position: 'absolute', top: styleBoxMessageEmojis.top + 'px', left: styleBoxMessageEmojis.left + 'px'}"
+    (emojiSelect)="handleClick($event)"
+    emojiTooltip="true"
+    title="Pick your emoji…"
+    emoji='point_up'>
+  </emoji-mart>
+</div>
+
+<span class="box-emojis-react-message"
+      [ngStyle]="{'z-index': 10000, position: 'fixed', top: styleBoxReactEmojis.top + 'px', left: styleBoxReactEmojis.left + 'px'}">
+  <div class="row">
+    <div class="col p-1 emoji text-center" *ngFor="let emoji of listEmojis" (click)="reactMessenger(emoji)">
+    <span>{{emoji.native}}</span>
+  </div>
+  </div>
+</span>
+
+<span class="box-message-activities"
+      [ngStyle]="{'z-index': 10000, position: 'fixed', top: styleBoxMessageActivities.top + 'px', left: styleBoxMessageActivities.left + 'px'}">
+  <div class="action" (click)="beginUpdateMessenger()">
+    <span>Edit</span>
+  </div>
+  <div class="action" (click)="copyMessenger()">
+    <span>Copy</span>
+  </div>
+  <div class="action" *ngIf="setUpActivitiesObj.download">
+      <a [href]="'attachments' + '/' + selectedMessenger.path"><span>Download</span></a>
+  </div>
+  <div class="action">
+    <span>Forward</span>
+  </div>
+  <div class="action" (click)="beginRemoveMessenger()">
+    <span>Remove</span>
+  </div>
+</span>
+
+<input type="text" id="inputCopy">
+
+<box-react-emoji-users [emoji]="dataShowReactEmoji.selectedEmoji" [users]="dataShowReactEmoji.users"
+                       [triggerElementId]="dataShowReactEmoji.triggerElementId"></box-react-emoji-users>
+
+<box-users-read-messenger [readUsers]="dataShowUsersReadMessenger.readUsers" [triggerElementId]="dataShowUsersReadMessenger.triggerElementId"></box-users-read-messenger>
+<!--</body>-->
+<modal-add-channel></modal-add-channel>
+<modal-add-user-to-chat></modal-add-user-to-chat>
+<modal-box-contact></modal-box-contact>
+<modal-box-request></modal-box-request>
+<modal-box-chat></modal-box-chat>
+<modal-update-profile></modal-update-profile>
+<modal-box-gallery></modal-box-gallery>
+<modal-box-notification></modal-box-notification>
+<modal-box-confirm-request></modal-box-confirm-request>

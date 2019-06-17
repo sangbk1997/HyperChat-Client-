@@ -1,0 +1,77 @@
+<div class="modal fade" id="modalBoxContact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-notify modal-info" role="document" style="height: 500px">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <div class="heading lead" (click)="text-center">Thông tin</div>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <!--Header-->
+        <div class="text-center">
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar"
+               class="avatar rounded-circle img-responsive">
+        </div>
+        <div class="text-center">
+          <h3>{{infoContact.username}}</h3>
+        </div>
+        <div class="row text-primary">Thông tin về {{infoContact.username}}</div>
+        <div class="infoDetail">
+          <div class="info-item" (click)="sendMessage()">
+            <i class="far fa-comment-alt mr-3"></i>
+            <span>Gửi tin nhắn</span>
+          </div>
+          <div class="info-item" (click)="addNewGroup()">
+            <i class="fas fa-users mr-3"></i>
+            <span>Tạo nhóm mới với {{infoContact.username}}</span>
+          </div>
+          <div class="info-item" (click)="blockContact(infoContact.id)">
+            <i class="fas fa-ban mr-3"></i>
+            <span class="text-danger">Chặn {{infoContact.username}}</span>
+          </div>
+          <div class="info-item" *ngIf="linkUserChannel['isAdmin']" (click)="deleteChat()">
+            <i class="fas fa-trash-alt mr-3"></i>
+            <span class="text-danger">Xóa cuộc trò chuyện</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmInContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">{{contentBoxConfirm.title}}</p>
+      </div>
+
+      <!--&lt;!&ndash;Body&ndash;&gt;-->
+      <!--<div class="modal-body">-->
+
+      <!--<i class="fas fa-times fa-4x animated rotateIn"></i>-->
+
+      <!--</div>-->
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a href="" class="btn  btn-outline-danger" (click)="acceptConfirm()">Đồng ý</a>
+        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+

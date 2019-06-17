@@ -1,0 +1,256 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+.chat-app {
+  font-family: Arial;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+a {
+  cursor: pointer;
+  color: rgb(0, 0, 238);
+}
+
+.fixed-top-left {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.fixed-top-right {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+
+.fixed-top {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+}
+
+.fixed-bottom {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  bottom: 0;
+}
+
+.icon-line {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.emotion {
+  margin: 5px;
+  text-align: top;
+}
+
+.emotion:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+img:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  font-weight: bolder;
+}
+
+.symbol-link:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.add-button-chat:hover {
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.avatar {
+  width: 100px;
+  height: auto;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.chat-app {
+  .sidebar {
+    width: 25%;
+    height: 100%;
+    float: left;
+    background-color: #EEEEEE;
+
+    .sidebar-header {
+      z-index: 1;
+      width: 25%;
+      height: 230px;
+      padding: 10px;
+      background-color: #EEEEEE;
+      box-shadow: -2px 0px 2px gray;
+      .fixed-top-left();
+
+      .info-user {
+        .info-detail {
+          .attached-info-channel {
+            .extra-info-channel {
+            }
+          }
+        }
+
+        .setting-area {
+        }
+      }
+
+      .box-search-channel {
+        width: 95%;
+        margin: auto;
+        padding: 10px;
+      }
+
+      .menu-search-item {
+        .title-item {
+          font-size: 10px;
+          opacity: 0.7;
+        }
+      }
+    }
+
+    .sidebar-content {
+      overflow: auto;
+      height: 95vh; /* percent relative to viewport height */
+      width: 100%;
+      margin-top: 220px;
+      padding: 10px;
+
+      .header-by-item {
+
+      }
+
+      .list-channel {
+        overflow: auto;
+        margin-right: -50px; /* maximum width of scrollbar */
+        padding-right: 50px; /* maximum width of scrollbar */
+        .info-channel {
+          padding: 5px;
+
+          .title-channel {
+            font-weight: bold;
+          }
+        }
+
+        .info-channel:hover {
+          background-color: whitesmoke;
+          cursor: pointer;
+        }
+
+      }
+
+      .list-channel:hover{
+        margin-right: 0px; /* maximum width of scrollbar */
+        padding-right: 0px; /* maximum width of scrollbar */
+      }
+
+    }
+
+  }
+
+  .main-content {
+    width: 75%;
+    float: right;
+
+    .header-channel {
+      width: 75%;
+      height: 100px;
+      .fixed-top();
+      background-color: white;
+      z-index: 2;
+      border-bottom: 1px solid gray;
+      box-shadow: 0px 0px 2px gray;
+
+      .info-channel {
+        .attached-info-channel {
+        }
+      }
+
+      .feature-support {
+        .feature-item {
+          opacity: 0.7;
+          padding: 10px;
+          border-radius: 50%;
+          margin: 10px;
+          background-color: #EEEEEE;
+        }
+
+      }
+    }
+
+    .content-message-container {
+      overflow: auto;
+      height: 70vh; /* percent relative to viewport height */
+      z-index: 1;
+      margin-top: 100px;
+      margin-right: -50px; /* maximum width of scrollbar */
+      //padding-right: 50px; /* maximum width of scrollbar */
+      .info-detail-message {
+
+        .message {
+          .info-message {
+            .content-message {
+              padding: 5px;
+
+              .text {
+                border-radius: 5px;
+                padding: 7px;
+              }
+
+              .emotion {
+                font-size: 12px;
+                opacity: 0.7;
+                vertical-align: top;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    .content-message-container:hover{
+      margin-right: 0px; /* maximum width of scrollbar */
+      //padding-right: 0px; /* maximum width of scrollbar */
+    }
+
+    .send-message-box {
+      width: 75%;
+      float: right;
+      background-color: white;
+      z-index: 2;
+      padding: 20px;
+      bottom: 10px;
+      .fixed-bottom();
+
+      .input-group {
+      }
+    }
+  }
+}

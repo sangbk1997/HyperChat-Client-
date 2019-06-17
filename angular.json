@@ -13,19 +13,28 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/appClient",
+            "outputPath": "../js/chatme-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/public/images"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/public/css/animate.css",
+              "src/public/css/chat-app.css",
+              "src/public/css/picker.css",
+              "src/public/css/hover.css",
+              "src/public/css/role.css"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
+            "aot": false,
+            "deleteOutputPath": false,
+            "watch": true,
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -84,7 +93,6 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ]
           }

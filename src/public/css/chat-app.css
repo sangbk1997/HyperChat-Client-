@@ -1,0 +1,268 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+.chat-app {
+  font-family: Arial;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+a {
+  cursor: pointer;
+  color: #2070ee;
+}
+
+.fixed-top-left {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.fixed-top-right {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.fixed-top {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+}
+
+.fixed-bottom {
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  bottom: 0;
+}
+
+.icon-line {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.emotion {
+  margin: 5px;
+  text-align: top;
+}
+
+.emotion:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+img:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  font-weight: bolder;
+}
+
+.symbol-link:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.add-button-chat:hover {
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.avatar {
+  width: 50px;
+  margin: 5px;
+  padding: 1px;
+  height: auto;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.chat-app .sidebar {
+  width: 25%;
+  height: 100%;
+  float: left;
+  background-color: #EEEEEE;
+}
+
+.chat-app .sidebar .sidebar-header {
+  z-index: 1000;
+  width: 25%;
+  height: 240px;
+  padding: 10px;
+  background-color: #EEEEEE;
+  box-shadow: -2px 0px 2px gray;
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.chat-app .sidebar .sidebar-header .box-search-channel {
+  width: 95%;
+  margin: auto;
+  padding: 10px;
+}
+
+.chat-app .sidebar .sidebar-header .menu-search-item .title-item {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.chat-app .sidebar .sidebar-content {
+  overflow: auto;
+  height: 65vh;
+  /* percent relative to viewport height */
+  width: 100%;
+  margin-top: 250px;
+  padding: 10px;
+}
+
+.chat-app .sidebar .sidebar-content .list-channel {
+  overflow: auto;
+  height: 450px;
+  margin-right: -50px;
+  /* maximum width of scrollbar */
+  padding-right: 50px;
+  /* maximum width of scrollbar */
+}
+
+.chat-app .sidebar .sidebar-content .list-channel .info-channel {
+  padding: 5px;
+}
+
+.chat-app .sidebar .sidebar-content .list-channel .info-channel .title-channel {
+  font-weight: bold;
+}
+
+.chat-app .sidebar .sidebar-content .list-channel .info-channel:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.chat-app .sidebar .sidebar-content .list-channel:hover {
+  margin-right: 0px;
+  /* maximum width of scrollbar */
+  padding-right: 0px;
+  /* maximum width of scrollbar */
+}
+
+.chat-app .main-content {
+  width: 75%;
+  float: right;
+}
+
+.chat-app .main-content .header-channel {
+  width: 75%;
+  height: 100px;
+  position: -webkit-fixed;
+  /* Safari */
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+  border-bottom: 1px solid gray;
+  box-shadow: 0px 0px 2px gray;
+}
+
+.chat-app .main-content .header-channel .feature-support .feature-item {
+  opacity: 0.7;
+  padding: 10px;
+  border-radius: 50%;
+  margin: 10px;
+  background-color: #EEEEEE;
+}
+
+.chat-app .main-content .content-message-container {
+  overflow: auto;
+  height: 70vh;
+  /* percent relative to viewport height */
+  z-index: 1;
+  margin-top: 100px;
+  margin-right: -50px;
+  /* maximum width of scrollbar */
+}
+
+.content-message {
+  position: relative;
+}
+
+.content-message .text {
+  border-radius: 5px;
+  padding: 7px;
+}
+
+.content-message .emotion {
+  font-size: 12px;
+  opacity: 0.7;
+  vertical-align: top;
+}
+
+.chat-app .main-content .content-message-container:hover {
+  margin-right: 0px;
+  /* maximum width of scrollbar */
+}
+
+.chat-row:hover {
+  background-color: #99CCFF;
+  font-weight: bold;
+}
+
+.message-right {
+  padding: 8px;
+  background: #9fcdff;
+  border-radius: 10px 5px 5px 10px;
+  margin: 2px;
+}
+
+.message-left {
+  padding: 8px;
+  background: cornsilk;
+  border-radius: 5px 10px 10px 5px;
+  margin: 2px;
+}
+
+.gallery-file {
+  padding: 5px;
+  margin: 5px;
+  background-color: #9ae1e2;
+  border-radius: 5px;
+}
+
+.info-item {
+  padding: 10px;
+  margin: 0px 5px 0px 5px;
+  font-weight: bold;
+  color: black;
+  border-bottom: solid grey 1px;
+}
+
+.info-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.info-request {
+  padding: 10px;
+  margin: 0px 5px 0px 5px;
+  font-weight: bold;
+  color: black;
+  border-bottom: solid grey 1px;
+}

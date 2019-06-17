@@ -1,0 +1,23 @@
+<div id="modalConfirmRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Xác nhận yêu cầu</h4>
+        </div>
+        <div class="modal-body">
+          <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
+                  (click)="acceptRequest()">Chấp nhận
+          </button>
+          <!--<button type="button" mdbBtn color="warning" class="relative waves-light" mdbWavesEffect-->
+                  <!--(click)="discardRequest()">Bỏ qua-->
+          <!--</button>-->
+          <button type="button" mdbBtn color="danger" class="relative waves-light" mdbWavesEffect
+                  (click)="rejectRequest()">Từ chối
+          </button>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

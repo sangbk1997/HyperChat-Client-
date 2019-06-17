@@ -1,0 +1,33 @@
+<h3 class="bg-light link p-2" *ngIf="bean.isNotEmpty(listPeople)">People</h3>
+<div class="people-container" style="overflow: auto"></div>
+<div class="row mb-2 chat-row" *ngFor="let person of listPeople" (click)="choosePerson(person)">
+  <div class="w-25 text-center">
+    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+         class="avatar img-fluid z-depth-1-half rounded-circle">
+  </div>
+  <div class="w-75 pr-2 pt-3">
+    <b>{{person.username}}</b>
+  </div>
+</div>
+<div class="row text-right p-2">
+  <span class="bold link" *ngIf="bean.isNotEmpty(listPeople)" (click)="loadMorePeople()">More</span>
+</div>
+<hr>
+<h3 class="bg-light p-2 link" *ngIf="bean.isNotEmpty(listChats)">Group Chat</h3>
+<div class="group-container" style="overflow:auto;">
+  <div class="row mb-2 chat-row" *ngFor="let chat of listChats" (click)="chooseChat(chat)">
+    <div class="w-25 text-center">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+           class="avatar img-fluid z-depth-1-half rounded-circle">
+    </div>
+    <div class="w-50">
+      <b>{{chat.title}}</b>
+      <div class="small text-muted">
+        {{chat.slogan}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row text-right p-2">
+  <span class="bold link" *ngIf="bean.isNotEmpty(listChats)" (click)="loadMoreChat()">More</span>
+</div>

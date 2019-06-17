@@ -1,0 +1,11 @@
+<div class="{{CLASS_BOX_USERS_READ_MESSENGER}}"
+     [ngStyle]="{top: styleBoxUsersReadMessenger.top + 'px', left: styleBoxUsersReadMessenger.left + 'px'}">
+  <h2 class="text-center">Số lượng {{readUsers.length}}</h2>
+  <div class="react-emoji-user m-1" *ngFor="let readUser of readUsers" (click)="detailUser(readUsers.id)" >
+    <span class="w-25 text-center">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+           class="avatar img-fluid z-depth-1-half rounded-circle">
+    </span>
+    <span class="w-75 text-left p-2">{{readUser.username}}</span>
+  </div>
+</div>

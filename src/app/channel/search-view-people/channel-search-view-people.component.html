@@ -1,0 +1,16 @@
+<h3 class="bg-light p-2">People</h3>
+<div class="row link mb-2 chat-row" *ngFor="let person of searchPeople" (click)="choosePerson(person)">
+  <div class="w-25 text-center">
+    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+         class="avatar img-fluid z-depth-1-half rounded-circle">
+  </div>
+  <div class="w-75 pr-2 pt-3">
+    <b>{{person.username}}</b>
+    <p>( {{person.email}} )</p>
+  </div>
+</div>
+<div class="row link text-right p-2">
+  <span class="bold link" *ngIf="searchPeople.length < countSearch"
+        (click)="moreSearchPeople()">More</span>
+</div>
+<hr>

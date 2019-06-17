@@ -1,0 +1,21 @@
+<div class="row mb-2 link chat-row" *ngFor="let channel of myChats" (click)="chooseChat(channel)">
+  <div class="w-25 text-center">
+    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+         class="avatar img-fluid z-depth-1-half rounded-circle">
+  </div>
+  <div class="w-50">
+    <b *ngIf="channel.type == TYPE_CHAT_GROUP">{{channel.title}}</b>
+    <b *ngIf="channel.type == TYPE_CHAT_CONTACT">{{channel['users'][0].username}}</b>
+    <div class="small text-muted text-left" style="width: 80%; overflow: hidden">
+      {{channel['messengers'][0].message}}
+    </div>
+  </div>
+  <div class="w-25 pr-3">
+    <div class="small text-center">11:20 AM</div>
+    <div class="text-right">
+      <span class="badge badge-pill badge-dark">Dark</span>
+    </div>
+  </div>
+</div>
+<!--<div class="row text-right" *ngIf="bean.isNotEmpty(myChats)" (click)="moreChat()"><b>More</b></div>-->
+

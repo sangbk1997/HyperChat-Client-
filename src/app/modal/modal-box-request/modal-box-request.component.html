@@ -1,0 +1,49 @@
+<div class="modal fade" id="modalBoxRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-notify modal-info" role="document" style="height: 500px">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <div class="heading lead" (click)="text-center">{{title}}</div>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <h3 class="text-primary text-center" *ngIf="bean.isNotEmpty(listRequest)">Thông tin kết nối</h3>
+        <h3 class="text-primary text-center" *ngIf="bean.isEmpty(listRequest)">Bạn không có kết nối nào</h3>
+        <div class="infoDetail">
+          <div class="info-request" *ngFor="let request of listRequest">
+            <div class="row">
+              <div class="col-1"><i class="fas fa-child fa-2x ml-2 text-center"></i></div>
+              <div class=" col-11 link"
+                   *ngIf="typeRequest == TYPE_INCOME_REQUEST">{{request.recieverMessage}}</div>
+              <div class="col-11 link"
+                   *ngIf="typeRequest == TYPE_SENT_REQUEST">{{request.triggerMessage}}</div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-primary btn-sm m-1" *ngIf="typeRequest == TYPE_INCOME_REQUEST"
+                      (click)="acceptRequest(request)">Chấp nhận
+              </button>
+              <button class="btn btn-danger btn-sm m-1" *ngIf="typeRequest == TYPE_INCOME_REQUEST"
+                      (click)="rejectRequest(request)">Từ chối
+              </button>
+              <button class="btn btn-danger btn-sm m-1" *ngIf="typeRequest == TYPE_SENT_REQUEST"
+                      (click)="deleteRequest(request)">Xóa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>

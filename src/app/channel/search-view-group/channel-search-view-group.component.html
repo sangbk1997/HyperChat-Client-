@@ -1,0 +1,19 @@
+<h3 class="bg-light p-2">Group Chat</h3>
+<div class="row link mb-2 chat-row" *ngFor="let chat of searchChats" (click)="chooseChat(chat)">
+  <div class="w-25 text-center">
+    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+         class="avatar img-fluid z-depth-1-half rounded-circle">
+  </div>
+  <div class="w-50 mr-2">
+    <b>{{chat.title}}</b>
+    <div class="small text-muted">
+      {{chat.slogan}}
+    </div>
+  </div>
+</div>
+<div class="row p-2">
+  <div class="bold link text-right" *ngIf="bean.isNotEmpty(searchChats)"
+       (click)="moreSearchChats()">More
+  </div>
+</div>
+<hr>

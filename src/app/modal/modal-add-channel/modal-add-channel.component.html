@@ -1,0 +1,111 @@
+<div class="modal fade" id="modalInitAddChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header">
+        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar"
+             class="avatar rounded-circle img-responsive">
+      </div>
+      <!--Body-->
+      <div class="modal-body text-center mb-1">
+
+        <h5 class="mt-1 mb-2">Ảnh đại diện</h5>
+
+        <div class="md-form ml-0 mr-0">
+          <input type="text" [(ngModel)]="newChannel['title']" type="text" id="form29"
+                 class="form-control form-control-sm validate ml-0">
+          <label data-error="wrong" data-success="right" for="form29" class="ml-0">Nhập tên Chat</label>
+        </div>
+
+        <div class="text-center mt-4">
+          <button class="btn btn-cyan mt-1" (click)="showModalDetailAddChannel()"> Chuyển tiếp <i
+            class="fas fa-sign-in ml-1"></i></button>
+        </div>
+      </div>
+
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div class="modal fade" id="modalDetailAddChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-notify modal-info" role="document" style="height: 500px">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Thêm người dùng</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <!-- Large input -->
+        <div class="md-form form-lg">
+          <input type="text" class="form-control form-control-lg">
+          <label>Tìm kiếm</label>
+        </div>
+        <hr>
+        <div>Người dùng đã chọn</div>
+        <div class="row small text-muted" style="overflow: auto">
+           <span *ngFor="let user of listUserSelected" class="item-user">
+             <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+                  class="avatar img-fluid z-depth-1-half rounded-circle">
+            <div style="height: 10px"></div>
+             <p class="title mb-0">{{user.email}}</p>
+           </span>
+        </div>
+        <hr>
+        <div>Danh sách người dùng</div>
+        <div *ngIf="bean.isNotEmpty(myContacts)">Gợi ý</div>
+        <div class="row small text-muted" *ngFor="let user of myContacts">
+          <div class="col-2 text-center">
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+                 class="avatar img-fluid z-depth-1-half rounded-circle">
+            <div style="height: 10px"></div>
+            <!--<p class="title mb-0">{{user.email}}</p>-->
+            <!--<p class="text-muted " style="font-size: 13px">( {{user.userName}} )</p>-->
+          </div>
+
+          <div class="col-8 mt-3">
+            <p>{{user.email}}</p>
+            <!--<p class="card-text"><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</strong></p>-->
+          </div>
+          <div class="col-2">
+            <input type="checkbox" (click)="toggleUser(user)" [checked]="checkUserSelected(user)">
+          </div>
+        </div>
+        <div *ngIf="bean.isNotEmpty(suggestPeople)">Giới thiệu</div>
+        <div class="row small text-muted" *ngFor="let user of suggestPeople">
+          <div class="col-2 text-center">
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+                 class="avatar img-fluid z-depth-1-half rounded-circle">
+            <div style="height: 10px"></div>
+            <!--<p class="title mb-0">{{user.email}}</p>-->
+            <!--<p class="text-muted " style="font-size: 13px">( {{user.userName}} )</p>-->
+          </div>
+          <div class="col-8 mt-3">
+            <p>{{user.email}}</p>
+            <!--<p class="card-text"><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</strong></p>-->
+          </div>
+          <div class="col-2">
+            <input type="checkbox" (click)="toggleUser(user)" [checked]="checkUserSelected(user)">
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary" (click)="addChannel()">Tạo Chat<i
+          class="far fa-gem ml-1 text-white"></i></a>
+        <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

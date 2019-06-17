@@ -1,0 +1,58 @@
+<div class="modal fade" id="modalViewChatmeProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" style="height: 400px; overflow: auto">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body mb-1">
+        <div class="md-form form-sm mb-5">
+          <i class="fas fa-envelope prefix"></i>
+          <input type="text" id="firstName" [(ngModel)]="userLogin['firstName']"
+                 class="form-control form-control-sm validate">
+          <label data-error="wrong" data-success="right" for="firstName"
+                 *ngIf="bean.isNil(userLogin['firstName'])">Your firstName</label>
+        </div>
+
+        <div class="md-form form-sm mb-4">
+          <i class="fas fa-lock prefix"></i>
+          <input type="text" id="lastName" [(ngModel)]="userLogin['lastName']"
+                 class="form-control form-control-sm validate">
+          <label data-error="wrong" data-success="right" for="lastName" *ngIf="bean.isNil(userLogin['lastName'])">Your
+            lastName</label>
+        </div>
+        <div class="md-form form-sm mb-5">
+          <i class="fas fa-envelope prefix"></i>
+          <input type="email" id="email" [(ngModel)]="userLogin['email']"
+                 class="form-control form-control-sm validate">
+          <label data-error="wrong" data-success="right" for="email" *ngIf="bean.isNil(userLogin['email'])">Your
+            email</label>
+        </div>
+
+        <div class="md-form form-sm mb-4">
+          <i class="fas fa-lock prefix"></i>
+          <input type="text" id="phone" [(ngModel)]="userLogin['phone']"
+                 class="form-control form-control-sm validate">
+          <label data-error="wrong" data-success="right" for="phone" *ngIf="bean.isNil(userLogin['phone'])">Your
+            phone</label>
+        </div>
+        <div class="md-form form-sm mb-4">
+          <i class="fas fa-lock prefix"></i>
+          <input type="text" id="location" [(ngModel)]="userLogin['location']"
+                 class="form-control form-control-sm validate">
+          <label data-error="wrong" data-success="right" for="location" *ngIf="bean.isNil(userLogin['location'])">Your
+            location</label>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer text-center">
+        <!--<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>-->
+        <button class="btn btn-primary" (click)="updateProfile()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

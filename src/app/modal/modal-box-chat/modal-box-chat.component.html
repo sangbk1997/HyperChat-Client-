@@ -1,0 +1,111 @@
+<div class="modal fade" id="modalBoxChat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-notify modal-info" role="document" style="height: 500px">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <div class="heading lead" (click)="text-center">Thông tin</div>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <!--Header-->
+        <div class="text-center">
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar"
+               class="avatar rounded-circle img-responsive">
+        </div>
+        <div class="text-center">
+          <!--<div class="md-form form-lg">-->
+            <!--<input type="text" class="form-control form-control-lg" [(ngModel)]="cloneInfoChat.title">-->
+            <!--<label *ngIf="bean.isNotEmpty(cloneInfoChat.title)">Tên nhóm chat</label>-->
+          <!--</div>-->
+          <h3 class="text-primary">{{cloneInfoChat.title}}</h3>
+          <span>{{cloneInfoChat.title}} được tạo bởi {{userCreatedChat.username}}</span>
+        </div>
+        <div class="row text-primary">Thông tin về {{infoChat.title}}</div>
+        <div class="infoDetail">
+          <div class="info-item" (click)="sendMessage()">
+            <i class="far fa-comment-alt mr-3"></i>
+            <span>Gửi tin nhắn</span>
+          </div>
+          <div class="row text-muted mt-2">
+            Thành viên {{bean.isNotEmpty(members) ? members.length : 0}}
+          </div>
+          <div class="info-item" (click)="addUserToChat()">
+            <i class="fas fa-user-plus mr-3"></i>
+            <span>Thêm thành viên</span>
+          </div>
+          <div class="row link chat-row" *ngFor="let user of members">
+            <div class="w-25 text-center" *ngIf="userLogin.id != user.id">
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="IMG of Avatars"
+                   class="avatar img-fluid z-depth-1-half rounded-circle">
+            </div>
+            <div class="w-75" *ngIf="userLogin.id != user.id">
+              <div class="info-item row">
+                <span class="col text-muted">{{user.username}}</span>
+                <div class="col text-right" *ngIf="userLogin.id == userCreatedChat.id">
+                  <button class="btn btn-danger btn-sm" (click)="confirmRemoveUser(user)">Xóa</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info-item row" (click)="toggleNotification()">
+            <i class="fas fa-bell mr-3"></i>
+            <div class="col text-muted">Thông báo</div>
+            <div class="text-danger col text-right">
+              <input type="checkbox" [checked]="linkUserChannel['notification']">
+            </div>
+          </div>
+          <div class="info-item" (click)="confirmLeaveChat()">
+            <i class="fas fa-user-times mr-3"></i>
+            <span class="text-danger">Rời khỏi nhóm</span>
+          </div>
+          <div class="info-item" *ngIf="userLogin.id == userCreatedChat.id" (click)="confirmDeleteChat()">
+            <i class="fas fa-trash-alt mr-3"></i>
+            <span class="text-danger">Xóa cuộc trò chuyện</span>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary" (click)="updateChat()">Cập nhật<i
+          class="far fa-gem ml-1 text-white"></i></a>
+        <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmInChat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">{{contentBoxConfirm.title}}</p>
+      </div>
+
+      <!--&lt;!&ndash;Body&ndash;&gt;-->
+      <!--<div class="modal-body">-->
+
+        <!--<i class="fas fa-times fa-4x animated rotateIn"></i>-->
+
+      <!--</div>-->
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a href="" class="btn  btn-outline-danger" (click)="acceptConfirm()">Đồng ý</a>
+        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Đóng</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+

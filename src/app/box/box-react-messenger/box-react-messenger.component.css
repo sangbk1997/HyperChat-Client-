@@ -1,0 +1,44 @@
+
+.box-react-emojis {
+  display: inline-block;
+  position: relative;
+  top: -10px;
+  left: 0;
+  border-radius: 10px;
+  font-size: 16px;
+  width: 400px;
+  height: auto;
+}
+
+.box-react-emojis .item-emoji {
+  padding: 5px;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  background-color: white;
+  margin: 5px;
+}
+
+.box-react-emojis .item-emoji:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+
+.item-emoji {
+  display: inline-block;
+  padding: 5px;
+}
+
+.box-user-read-message:hover {
+  cursor: pointer;
+}
+
+.item-user {
+  display: inline-block;
+  padding: 5px;
+}
+
+
+.avatar-user-read{
+  width: 30px;
+}
